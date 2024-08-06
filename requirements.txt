@@ -1,4 +1,5 @@
 selenium~=4.22.0
-webdriver_manager
+webdriver-manager
 numpy
 pandas
+pymol
