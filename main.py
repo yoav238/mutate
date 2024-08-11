@@ -32,6 +32,8 @@ if not os.path.exists(chromedriver_path):
 service = Service(chromedriver_path)
 driver = webdriver.Chrome(service=service, options=chrome_options)
 
+print(driver.capabilities['browserVersion'])
+
 driver.get("https://www.rcsb.org/")
 outputFolder = "C:/Users/User/OneDrive/Documents/Mutaion/OutputFiles"
 

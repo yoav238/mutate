@@ -2,10 +2,11 @@ from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
 
-# Download and get the path of ChromeDriver
-chrome_driver_path = ChromeDriverManager().install()
-print(f"ChromeDriver is located at: {chrome_driver_path}")
+chrome_options = webdriver.ChromeOptions()
+service = Service(ChromeDriverManager().install())
+driver = webdriver.Chrome(service=service, options=chrome_options)
 
-# Check if the path is valid
-import os
-print(f"Path exists: {os.path.exists(chrome_driver_path)}")
+driver.get("chrome://version/")
+version = driver.find_element_by_css_selector("body > table > tbody > tr:nth-child(1) > td:nth-child(2)").text
+print(f"Chrome version: {version}")
+driver.quit()
