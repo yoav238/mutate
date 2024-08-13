@@ -1,3 +1,5 @@
+from selenium.webdriver.common.by import By
+
 from WebFunction import search_and_download
 from FileFunctions import read_csv_to_string_array
 from FileFunctions import move_latest_file
@@ -45,7 +47,9 @@ print(driver.capabilities['browserVersion'])
 
 driver.get("https://www.rcsb.org/")
 outputFolder = "C:/Users/User/OneDrive/Documents/Mutaion/OutputFiles"
-
+element = driver.find_element(By.CLASS_NAME, "mainnav_title.hidden-xs")
+text = element.text
+print("Extracted Text:", text)
 print(len(filesInInput))
 
 for protienName in filesInInput:
