@@ -31,12 +31,17 @@ def search_and_download(driver, protein):
     print('//table[@class="results-item-header"]//h3/a[contains(@href,"'+protein+'")]')
 
     searchResult = wait.until(EC.presence_of_element_located((By.XPATH,'//table[@class="results-item-header"]//h3/a[contains(@href,"'+protein+'")]')))
-
+    time.sleep(1000)
     #searchResult = driver.find_element(By.XPATH,'//table[@class="results-item-header"]//*[contains(@href,"'+protein+'")]')
     #searchResult = driver.find_element(By.XPATH,'//table[@class="results-item-header"]//h3/a[contains(@href,"4ZTO")]')
     searchResult.click()
+    time.sleep(1000)
     driver.find_element(By.ID, 'dropdownMenuDownloadFiles').click()
+    time.sleep(1000)
+    element = driver.find_element(By.XPATH, "//*[@href='/fasta/entry/1T60']")
+    text = element.text
+    print("Extracted Text:", text)
 
     driver.find_element(By.XPATH,'//*[@class="dropdown-menu pull-right"]//a[contains(@href,"download") and contains(text(),"PDB Format")]').click()
-
+    time.sleep(1000)
     time.sleep(5)
