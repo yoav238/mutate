@@ -23,6 +23,7 @@ print(filesInInput)
 # Set up Chrome options (ensure the browser is not headless)
 chrome_options = webdriver.ChromeOptions()
 chrome_options.add_argument("--start-maximized")
+chrome_options.add_argument("--headless")
 
 # Use ChromeDriverManager to download and setup ChromeDriver
 chromedriver_dir = os.path.dirname(ChromeDriverManager().install())
