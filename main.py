@@ -13,6 +13,10 @@ import os
 
 cmd.reinitialize()
 
+print(os.getenv('CHROME_DRIVER_PATH'))
+
+print((os.getenv('CHROME_DRIVER_PATH')) is None)
+
 filesInInput = list_files_in_folder(r'C:/Users/User/OneDrive/Documents/Mutaion/InputFiles')
 print(filesInInput)
 
@@ -22,7 +26,12 @@ chrome_options.add_argument("--start-maximized")
 
 # Use ChromeDriverManager to download and setup ChromeDriver
 chromedriver_dir = os.path.dirname(ChromeDriverManager().install())
-chromedriver_path = os.path.join(chromedriver_dir, "chromedriver.exe")
+if os.getenv('CHROME_DRIVER_PATH') is None:
+
+    chromedriver_path = os.path.join(chromedriver_dir, "chromedriver.exe")
+else:
+    chromedriver_path = os.getenv('CHROME_DRIVER_PATH')
+
 print(f"Using ChromeDriver at: {chromedriver_path}")  # Added for debugging
 
 # Check if the correct chromedriver.exe exists
