@@ -43,7 +43,7 @@ def search_and_download(driver, protein):
     element = driver.find_element(By.XPATH, "//*[@href='/fasta/entry/1T60']")
     text = element.text
     print("Extracted Text line 43 : ", text)
-
+    wait_for_element_exists(driver,'//*[@class="dropdown-menu pull-right"]//a[contains(@href,"download") and contains(text(),"PDB Format")]',5)
     driver.find_element(By.XPATH,'//*[@class="dropdown-menu pull-right"]//a[contains(@href,"download") and contains(text(),"PDB Format")]').click()
     time.sleep(5)
 
