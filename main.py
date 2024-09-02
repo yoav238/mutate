@@ -28,6 +28,16 @@ filesInInput = list_files_in_folder(r'C:/Users/User/OneDrive/Documents/Mutaion/I
 chrome_options = webdriver.ChromeOptions()
 chrome_options.add_argument("--start-maximized")
 
+# Set preferences for downloading files
+prefs = {
+    "download.default_directory": "C:\\Users\\User\\OneDrive\\Documents\\Mutaion\\OutputFiles",  # Specify your Jenkins download path
+    "download.prompt_for_download": False,
+    "download.directory_upgrade": True,
+    "safebrowsing.enabled": True
+}
+
+chrome_options.add_experimental_option("prefs", prefs)
+
 # Use ChromeDriverManager to download and setup ChromeDriver
 chromedriver_dir = os.path.dirname(ChromeDriverManager().install())
 if os.getenv('CHROME_DRIVER_PATH') is None:
@@ -58,7 +68,7 @@ for protienName in filesInInput:
     protienName = protienName.replace(".csv", "")
     print(protienName)
     search_and_download(driver, protienName)
-    move_latest_pdb_file("C:/Users/User/Downloads", outputFolder)
+    #move_latest_pdb_file("C:/Users/User/Downloads", outputFolder)
 
     # Mutate
     protienName = protienName.replace("T", "t")
