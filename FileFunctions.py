@@ -127,3 +127,24 @@ def read_csv_to_double_array(file_path):
         print(f"Error reading the CSV file: {e}")
 
     return double_array
+
+def move_latest_pdb_file(source_folder, destination_folder):
+    # Get a list of all files in the source folder ending with '.pdb'
+    pdb_files = [f for f in os.listdir(source_folder) if f.endswith('.pdb')]
+
+    # If no PDB files are found, exit the function
+    if not pdb_files:
+        print("No PDB files found in the source folder.")
+        return
+
+    # Find the latest PDB file based on the modification time
+    latest_file = max(pdb_files, key=lambda f: os.path.getmtime(os.path.join(source_folder, f)))
+
+    # Full path of the latest PDB file
+    source_file_path = os.path.join(source_folder, latest_file)
+    # Destination path
+    destination_file_path = os.path.join(destination_folder, latest_file)
+
+    # Move the file to the destination folder
+    shutil.move(source_file_path, destination_file_path)
+    print(f"Moved {latest_file} from {source_folder} to {destination_folder}")

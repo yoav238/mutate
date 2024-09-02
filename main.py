@@ -3,7 +3,7 @@ import time
 from selenium.webdriver.common.by import By
 
 from WebFunction import search_and_download
-from FileFunctions import read_csv_to_string_array
+from FileFunctions import read_csv_to_string_array, move_latest_pdb_file
 from FileFunctions import move_latest_file
 from FileFunctions import list_files_in_folder
 import rotkit
@@ -58,7 +58,7 @@ for protienName in filesInInput:
     protienName = protienName.replace(".csv", "")
     print(protienName)
     search_and_download(driver, protienName)
-    move_latest_file("C:/Users/User/Downloads", outputFolder)
+    move_latest_pdb_file("C:/Users/User/Downloads", outputFolder)
 
     # Mutate
     protienName = protienName.replace("T", "t")
