@@ -28,20 +28,31 @@ def search_and_download(driver, protein):
     wait = WebDriverWait(driver, 10)  # Wait for up to 10 seconds
 
     # Wait for the element to exist
-    print('//table[@class="results-item-header"]//h3/a[contains(@href,"'+protein+'")]')
+    print('//table[@class="results-item-header"]//h3/a[contains(@href,"' + protein + '")]')
+    element_xpath = '//table[@class="results-item-header"]//h3/a[contains(@href,"' + protein + '")]'
 
-    searchResult = wait.until(EC.presence_of_element_located((By.XPATH,'//table[@class="results-item-header"]//h3/a[contains(@href,"'+protein+'")]')))
-    time.sleep(1000)
+    wait_for_element_exists(driver, element_xpath, 20)
+    time.sleep(1)
     #searchResult = driver.find_element(By.XPATH,'//table[@class="results-item-header"]//*[contains(@href,"'+protein+'")]')
     #searchResult = driver.find_element(By.XPATH,'//table[@class="results-item-header"]//h3/a[contains(@href,"4ZTO")]')
+    searchResult = driver.find_element(By.XPATH, element_xpath)
     searchResult.click()
-    time.sleep(1000)
+    time.sleep(1)
     driver.find_element(By.ID, 'dropdownMenuDownloadFiles').click()
-    time.sleep(1000)
+    time.sleep(1)
     element = driver.find_element(By.XPATH, "//*[@href='/fasta/entry/1T60']")
     text = element.text
-    print("Extracted Text:", text)
+    print("Extracted Text line 43 : ", text)
 
     driver.find_element(By.XPATH,'//*[@class="dropdown-menu pull-right"]//a[contains(@href,"download") and contains(text(),"PDB Format")]').click()
-    time.sleep(1000)
     time.sleep(5)
+
+
+def wait_for_element_exists(driver, xpath, waitSec):
+    """Check if an element exists by XPath."""
+    i = 0
+    while (len(driver.find_elements(By.XPATH, xpath)) < 1) and waitSec > i:
+        time.sleep(1)  # Wait for 1 second before checking again
+        i += 1
+        print(f"Waiting... {i} seconds passed")
+    return waitSec > i

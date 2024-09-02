@@ -1,3 +1,5 @@
+from datetime import time
+import time
 from selenium.webdriver.common.by import By
 
 from WebFunction import search_and_download
@@ -20,7 +22,7 @@ print(os.getenv('CHROME_DRIVER_PATH'))
 print((os.getenv('CHROME_DRIVER_PATH')) is None)
 
 filesInInput = list_files_in_folder(r'C:/Users/User/OneDrive/Documents/Mutaion/InputFiles')
-print(filesInInput)
+
 
 # Set up Chrome options (ensure the browser is not headless)
 chrome_options = webdriver.ChromeOptions()
@@ -59,8 +61,14 @@ for protienName in filesInInput:
     move_latest_file("C:/Users/User/Downloads", outputFolder)
 
     # Mutate
+    protienName = protienName.replace("T", "t")
+    filesInOutput = list_files_in_folder(r'C:/Users/User/OneDrive/Documents/Mutaion/OutputFiles')
+    for value in filesInOutput:
+        print(value)
     cmd.load(outputFolder + "/" + protienName + ".pdb")
+
     csv_file_path = r'C:/Users/User/OneDrive/Documents/Mutaion/InputFiles/' + protienName + '.csv'
+    time.sleep(2)
     patho = read_csv_to_double_array(csv_file_path)
     mutate(cmd, patho)
     print(protienName + " is done")
